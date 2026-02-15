@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  # Infrastructure
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs,dynamodb
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  # Microservices (Placeholders - will be built later)
+  # order-intake-service: ...
+  # production-planner-service: ...
+  # kitchen-orchestrator: ...
+
+networks:
+  DFS-net:
+    driver: bridge
+

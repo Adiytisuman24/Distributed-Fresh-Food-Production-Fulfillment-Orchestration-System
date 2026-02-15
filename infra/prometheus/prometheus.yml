@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "order-intake-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["order-intake-service:8081"]
+
+  - job_name: "production-planner-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["production-planner-service:8082"]
+
+  - job_name: "kitchen-orchestrator"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["kitchen-orchestrator:8083"]
+
