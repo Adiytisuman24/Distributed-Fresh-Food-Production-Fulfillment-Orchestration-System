@@ -99,7 +99,9 @@ Answers: Who made this food? Where? When? Why was it delayed? Non-negotiable for
 
 ## 💥 FAILURE PATHS
 ❌ **Kitchen Goes Offline**: Orchestrator stops pulling tasks, Planner reassigns future tasks, Backpressure controller throttles intake. No cascading failure.
+
 ❌ **Demand Spike (Same-Day Rush)**: Queue depth rises, SLA engine predicts risk, Backpressure triggers. Result: Fewer orders, higher quality, lower waste.
+
 ❌ **Network Partition**: Idempotency prevents duplication, tasks retry safely, state reconciles on recovery. No human panic.
 
 ---
